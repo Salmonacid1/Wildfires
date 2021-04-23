@@ -1,0 +1,28 @@
+%% Load Data
+
+%Load 1987-2018 data; plot time vs acres burned graph 
+filename='1987-2018CalWildfireData';
+TotalAcresBurned=readtable(filename)
+Total_Burned= table2array (TotalAcresBurned)
+Total_Burned(9,2)=209815
+
+%% Graphing Exploratory 
+
+%plot(Total_Burned(:,1),Total_Burned(:,2), "markersize", 3)
+
+figure (1)
+bar(Total_Burned(:,1),Total_Burned(:,2))
+xlabel("Year")
+ylabel("Acres Burned")
+title("Wildfires Acres Burned from 1987-2018")
+
+%% wildfire 2020
+%%loading filename for 2020 wildfire california
+filename='fire_nrt_M-C61_195333';
+WildfireLocations2020=readtable(filename);
+LAT = WildfireLocations2020.latitude;
+LON = WildfireLocations2020.longitude;
+figure (2)
+worldmap([20 60], [-179 -100])
+
+%%use worldmap and constrain the lat/long for california 

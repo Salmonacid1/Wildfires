@@ -56,11 +56,69 @@ geoshow(ax,states,'SymbolSpec',faceColors)
 scatterm(Wildfire_Locations_2020.latitude,Wildfire_Locations_2020.longitude,5,'filled','k')
 title('Location of Wildfires in California in 2020')
 
-
-
 % cali = shaperead('usastatehi', 'UseGeoCoords', true,'Selector',{@(name) strcmpi(name,'California'), 'Name'});
 % axesm mercator; %Define Map axes
 % geoshow(cali); %Display map
 % plotm(LAT,LON,'Color','r','Marker','.','MarkerSize',1); %plot point at [lat,lon] location
 % 
 % %%use worldmap and constrain the lat/long for california 
+%% Loading Climatological Information for California 
+
+%Precipitation Data
+
+filename = 'California, Climate Division 1, Precipitation.csv';
+Precipitation_CD_1=readtable(filename);
+
+filename = 'California, Climate Division 2, Precipitation.csv';
+Precipitation_CD_2=readtable(filename);
+
+filename = 'California, Climate Division 3, Precipitation.csv';
+Precipitation_CD_3=readtable(filename);
+
+filename = 'California, Climate Division 4, Precipitation.csv';
+Precipitation_CD_4=readtable(filename);
+
+filename = 'California, Climate Division 5, Precipitation.csv';
+Precipitation_CD_5=readtable(filename);
+
+filename = 'California, Climate Division 6, Precipitation.csv';
+Precipitation_CD_6=readtable(filename);
+
+filename = 'California, Climate Division 7, Precipitation.csv';
+Precipitation_CD_7=readtable(filename);
+
+% for i=1:7
+%     filename = ['California, Climate Division ' num2str(i) ', Precipitation.csv'];
+%     Precipitation_CD_i=readtable(filename);
+% end
+
+%Temperature Data
+filename = 'California, Climate Division 1, Average Temperature.csv';
+AverageTemp_CD_1=readtable(filename);
+
+filename = 'California, Climate Division 2, Average Temperature.csv';
+AverageTemp_CD_2=readtable(filename);
+
+filename = 'California, Climate Division 3, Average Temperature.csv';
+AverageTemp_CD_3=readtable(filename);
+
+filename = 'California, Climate Division 4, Average Temperature.csv';
+AverageTemp_CD_4=readtable(filename);
+
+filename = 'California, Climate Division 5, Average Temperature.csv';
+AverageTemp_CD_5=readtable(filename);
+
+filename = 'California, Climate Division 6, Average Temperature.csv';
+AverageTemp_CD_6=readtable(filename);
+
+filename = 'California, Climate Division 7, Average Temperature.csv';
+AverageTemp_CD_7=readtable(filename);
+
+% for i=1:7
+%     filename = ['California, Climate Division ' num2str(i) ', Average Temperature.csv'];
+%     AverageTemp_CD_climate_divison(i)=readtable(filename);
+% end
+
+%Plotting Precipitation Overtime in California
+figure(3); clf
+scatter(Precipitation_CD_1.Date,Precipitation_CD_1.Value)

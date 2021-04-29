@@ -1,4 +1,4 @@
-%% Loading Data for Acres Burned due to Wildfires in California
+%% Data for Acres Burned due to Wildfires in California
 
 filename='1987-2018CalWildfireData';
 TotalAcresBurned=readtable(filename);
@@ -12,21 +12,16 @@ xlabel("Year")
 ylabel("Acres Burned")
 title("Acres Burned due to Wildfires from 1987-2018")
 
-%% Loading Spatial Data for 2020 Wildfires in California
+%% Spatial Data for 2020 Wildfires in California
 
 filename='fire_nrt_M-C61_195333';
 WildfireLocations2020=readtable(filename);
 Wildfire_Locations_2020 = WildfireLocations2020;
-% LAT = WildfireLocations2020.latitude;
-% LON = WildfireLocations2020.longitude;
 
 %Removing wildfires that did not occur in boundaries of California
 %Border Range: 
 %   Longitude: 114.133333 W to 124.4 W
 %   Latitude: 32.5 N to 42 N
-% 
-% Latitude = LAT
-% Longitude = LON
 
 toDelete =Wildfire_Locations_2020.latitude > 42;
 Wildfire_Locations_2020(toDelete, :) = [];
@@ -41,11 +36,11 @@ toDelete = Wildfire_Locations_2020.longitude > -114.133333;
 Wildfire_Locations_2020(toDelete, :) = [];
 
 %Plotting 2020 Wildfire Data on a Map 
-latlim= [32.5 42]
-lonlim = [-124.4 -114.133333]
+latlim= [32 42.5];
+lonlim = [-125 -114.133333];
 
 figure (2); clf
-ax= usamap(latlim,lonlim)
+ax= usamap(latlim,lonlim);
 axis off
 getm(gca, 'MapProjection')
 states = shaperead('usastatehi',...
@@ -56,7 +51,7 @@ geoshow(ax,states,'SymbolSpec',faceColors)
 scatterm(Wildfire_Locations_2020.latitude,Wildfire_Locations_2020.longitude,5,'filled','k')
 title('Location of Wildfires in California in 2020')
 
-%% Loading Climatological Information for California 
+%% Climatological Data for California's Climate Divisions
 
 %Precipitation Data
 
@@ -86,8 +81,6 @@ Precipitation_CD_7=readtable(filename);
 %     Precipitation_CD_{i}=readtable(filename);
 % end
 
-%https://www.mathworks.com/matlabcentral/answers/156169-how-to-change-the-name-of-variables-using-a-loop
-
 %Temperature Data
 filename = 'California, Climate Division 1, Average Temperature.csv';
 AverageTemp_CD_1=readtable(filename);
@@ -110,57 +103,88 @@ AverageTemp_CD_6=readtable(filename);
 filename = 'California, Climate Division 7, Average Temperature.csv';
 AverageTemp_CD_7=readtable(filename);
 
-% for i=1:7
-%     filename = ['California, Climate Division ' num2str(i) ', Average Temperature.csv'];
-%     AverageTemp_CD_climate_divison(i)=readtable(filename);
-% end
+% Algorithim to Convert Dates in Climate Division Data
 
-%% Algorithim to Convert Dates
-
-Time_All_CD = NaN(height(Precipitation_CD_1), 7)
+%Precipitation Data Date Conversion:
+Time_All_CD = NaN(height(Precipitation_CD_1), 7);
 
 for i=1:7
-    filename = ['California, Climate Division ' num2str(i) ', Precipitation.csv']
+    filename = ['California, Climate Division ' num2str(i) ', Average Temperature.csv'];
     [CD_Adjusted_Time] = TimeConversion(filename);
     Time_All_CD (:,i) = CD_Adjusted_Time;
 end
 
-Time_All_CD (:,1) = P_CD_1;
-Time_All_CD (:,2) = P_CD_2;
-Time_All_CD (:,3) = P_CD_3;
-Time_All_CD (:,4) = P_CD_4;
-Time_All_CD (:,5) = P_CD_5;
-Time_All_CD (:,6) = P_CD_6;
-Time_All_CD (:,7) = P_CD_7;
+P_CD_1= Time_All_CD (:,1);
+P_CD_2= Time_All_CD (:,2);
+P_CD_3= Time_All_CD (:,3);
+P_CD_4= Time_All_CD (:,4);
+P_CD_5= Time_All_CD (:,5); 
+P_CD_6= Time_All_CD (:,6); 
+P_CD_7= Time_All_CD (:,7);
+
+%Average Temperature Data Date Conversion:
+Time_All_CD_Temp = NaN(height(Precipitation_CD_1), 7);
+
+for i=1:7
+    filename = ['California, Climate Division ' num2str(i) ', Precipitation.csv'];
+    [CD_Adjusted_Time] = TimeConversion(filename);
+    Time_All_CD_Temp (:,i) = CD_Adjusted_Time;
+end
+
+T_CD_1= Time_All_CD_Temp (:,1);
+T_CD_2= Time_All_CD_Temp (:,2);
+T_CD_3= Time_All_CD_Temp (:,3);
+T_CD_4= Time_All_CD_Temp (:,4);
+T_CD_5= Time_All_CD_Temp (:,5); 
+T_CD_6= Time_All_CD_Temp (:,6); 
+T_CD_7= Time_All_CD_Temp (:,7);
+
+%% 
+
+%Plotting Observed Precipitation Overtime in California  (%plot the moving mean)
+
+%Smoothing the Data to a 5-year moving mean (60 month values) 
+CD1_Smoothed_Precip = movmean(Precipitation_CD_1.Value, 60);
+CD2_Smoothed_Precip = movmean(Precipitation_CD_2.Value, 60);
+CD3_Smoothed_Precip = movmean(Precipitation_CD_3.Value, 60);
+CD4_Smoothed_Precip = movmean(Precipitation_CD_4.Value, 60);
+CD5_Smoothed_Precip = movmean(Precipitation_CD_5.Value, 60);
+CD6_Smoothed_Precip = movmean(Precipitation_CD_6.Value, 60);
+CD7_Smoothed_Precip = movmean(Precipitation_CD_7.Value, 60);
+
+%Plot of Historical Observed Precipitation Data in California 
+figure(3); clf
+plot(P_CD_1,CD1_Smoothed_Precip)
+hold on
+plot(P_CD_2,CD2_Smoothed_Precip)
+hold on
+plot(P_CD_3,CD3_Smoothed_Precip)
+hold on
+plot(P_CD_4,CD4_Smoothed_Precip)
+hold on
+plot(P_CD_5,CD5_Smoothed_Precip)
+hold on
+plot(P_CD_6,CD6_Smoothed_Precip)
+hold on
+plot(P_CD_7,CD7_Smoothed_Precip)
+datetick('x','YYYY','keeplimits')
+xlabel ('Year')
+ylabel ('Precipitation (in)')
+title ('Historical Observed Precipitation in California Climate Divisions from 1950 - Present')
+legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7', 'Location', 'southoutside')
 
 
 
-
-%split up times after for loop 
-
-
-%     X = table2array(Precipitation_CD_1);
-%     CD_Date = X(:,1)
-%     Proper_Year = floor(CD_Date./100);
-%     Proper_Month = CD_Date -(Proper_Year .* 100); 
-%     CD_Convert_Time = datenum(Proper_Year, Proper_Month, 0);    
-
-
-
-%Plotting Precipitation Overtime in California
-% figure(3); clf
-% scatter(Precipitation_CD_1.Date,Precipitation_CD_1.Value)
 %% Loading SQF Data
 
 filename = 'SQF Location Temp.csv';
 SQF_Climatology=readtable(filename);
 
 %Exploratory Figure - Location of SQF Stations
-figure (4); 
-latlim= [32.5 42]
-lonlim = [-124.4 -114.133333]
+latlim= [32 42.5]
+lonlim = [-125 -114.133333]
 
-figure (2); clf
+figure (4); clf
 ax= usamap(latlim,lonlim)
 axis off
 getm(gca, 'MapProjection')

@@ -117,7 +117,7 @@ AverageTemp_CD_7=readtable(filename);
 
 %% Algorithim to Convert Dates
 
-Time_All_CD = NaN(height(Precipitation_CD_1), 7);
+Time_All_CD = NaN(height(Precipitation_CD_1), 7)
 
 for i=1:7
     filename = ['California, Climate Division ' num2str(i) ', Precipitation.csv']
@@ -125,33 +125,42 @@ for i=1:7
     Time_All_CD (:,i) = CD_Adjusted_Time;
 end
 
-P_CD_1= Time_All_CD (:,1);
-P_CD_2= Time_All_CD (:,2);
-P_CD_3= Time_All_CD (:,3);
-P_CD_4= Time_All_CD (:,4);
-P_CD_5= Time_All_CD (:,5); 
-P_CD_6= Time_All_CD (:,6); 
-P_CD_7= Time_All_CD (:,7);
+Time_All_CD (:,1) = P_CD_1;
+Time_All_CD (:,2) = P_CD_2;
+Time_All_CD (:,3) = P_CD_3;
+Time_All_CD (:,4) = P_CD_4;
+Time_All_CD (:,5) = P_CD_5;
+Time_All_CD (:,6) = P_CD_6;
+Time_All_CD (:,7) = P_CD_7;
 
-%do avg temp 
 
-%%
 
-%Plotting Precipitation Overtime in California  (%plot each one)
-figure(3); clf
-scatter(P_CD_1,Precipitation_CD_1.Value,'.')
-datetick('x','YYYY','keeplimits')
 
+%split up times after for loop 
+
+
+%     X = table2array(Precipitation_CD_1);
+%     CD_Date = X(:,1)
+%     Proper_Year = floor(CD_Date./100);
+%     Proper_Month = CD_Date -(Proper_Year .* 100); 
+%     CD_Convert_Time = datenum(Proper_Year, Proper_Month, 0);    
+
+
+
+%Plotting Precipitation Overtime in California
+% figure(3); clf
+% scatter(Precipitation_CD_1.Date,Precipitation_CD_1.Value)
 %% Loading SQF Data
 
 filename = 'SQF Location Temp.csv';
 SQF_Climatology=readtable(filename);
 
 %Exploratory Figure - Location of SQF Stations
-latlim= [31 42.5]
-lonlim = [-127 -114.133333]
+figure (4); 
+latlim= [32.5 42]
+lonlim = [-124.4 -114.133333]
 
-figure (4); clf
+figure (2); clf
 ax= usamap(latlim,lonlim)
 axis off
 getm(gca, 'MapProjection')

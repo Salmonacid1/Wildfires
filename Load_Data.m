@@ -86,8 +86,6 @@ Precipitation_CD_7=readtable(filename);
 %     Precipitation_CD_{i}=readtable(filename);
 % end
 
-%https://www.mathworks.com/matlabcentral/answers/156169-how-to-change-the-name-of-variables-using-a-loop
-
 %Temperature Data
 filename = 'California, Climate Division 1, Average Temperature.csv';
 AverageTemp_CD_1=readtable(filename);
@@ -110,17 +108,12 @@ AverageTemp_CD_6=readtable(filename);
 filename = 'California, Climate Division 7, Average Temperature.csv';
 AverageTemp_CD_7=readtable(filename);
 
-% for i=1:7
-%     filename = ['California, Climate Division ' num2str(i) ', Average Temperature.csv'];
-%     AverageTemp_CD_climate_divison(i)=readtable(filename);
-% end
-
-%% Algorithim to Convert Dates
+% Algorithim to Convert Dates
 
 Time_All_CD = NaN(height(Precipitation_CD_1), 7);
 
 for i=1:7
-    filename = ['California, Climate Division ' num2str(i) ', Precipitation.csv']
+    filename = ['California, Climate Division ' num2str(i) ', Precipitation.csv'];
     [CD_Adjusted_Time] = TimeConversion(filename);
     Time_All_CD (:,i) = CD_Adjusted_Time;
 end
@@ -135,9 +128,7 @@ P_CD_7= Time_All_CD (:,7);
 
 %do avg temp 
 
-%%
-
-%Plotting Precipitation Overtime in California  (%plot each one)
+%Plotting Precipitation Overtime in California  (%plot each one and moving mean)
 figure(3); clf
 scatter(P_CD_1,Precipitation_CD_1.Value,'.')
 datetick('x','YYYY','keeplimits')

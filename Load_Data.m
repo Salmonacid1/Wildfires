@@ -41,8 +41,8 @@ toDelete = Wildfire_Locations_2020.longitude > -114.133333;
 Wildfire_Locations_2020(toDelete, :) = [];
 
 %Plotting 2020 Wildfire Data on a Map 
-latlim= [32.5 42]
-lonlim = [-124.4 -114.133333]
+latlim= [32 42.5]
+lonlim = [-125 -114.133333]
 
 figure (2); clf
 ax= usamap(latlim,lonlim)
@@ -148,8 +148,8 @@ filename = 'SQF Location Temp.csv';
 SQF_Climatology=readtable(filename);
 
 %Exploratory Figure - Location of SQF Stations
-latlim= [31 42.5]
-lonlim = [-127 -114.133333]
+latlim= [32 42.5]
+lonlim = [-125 -114.133333]
 
 figure (4); clf
 ax= usamap(latlim,lonlim)

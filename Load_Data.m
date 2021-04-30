@@ -35,23 +35,6 @@ Wildfire_Locations_2020(toDelete, :) = [];
 toDelete = Wildfire_Locations_2020.longitude > -114.133333;
 Wildfire_Locations_2020(toDelete, :) = [];
 
-%Exploratory Map: Plotting 2020 Wildfire Data on a Map 
-latlim= [32 42.5];
-lonlim = [-125 -114.133333];
-
-figure (2); clf
-ax= usamap(latlim,lonlim);
-axis off
-getm(gca, 'MapProjection')
-states = shaperead('usastatehi',...
-    'UseGeoCoords',true,'BoundingBox',[lonlim',latlim']);
-faceColors = makesymbolspec('Polygon',...
-    {'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))});
-geoshow(ax,states,'SymbolSpec',faceColors)
-scatterm(Wildfire_Locations_2020.latitude,Wildfire_Locations_2020.longitude,5,'filled','k')
-hold on 
-scatterm(SQF_Climatology.LATITUDE(1), SQF_Climatology.LONGITUDE(1),200, 'p','filled','r')
-title('Location of Wildfires in California in 2020')
 
 %% Climatological Data for California's Climate Divisions
 
@@ -77,11 +60,6 @@ Precipitation_CD_6=readtable(filename);
 
 filename = 'California, Climate Division 7, Precipitation.csv';
 Precipitation_CD_7=readtable(filename);
-
-% for i=1:7
-%     filename = ['California, Climate Division ' num2str(i) ', Precipitation.csv'];
-%     Precipitation_CD_{i}=readtable(filename);
-% end
 
 %Temperature Data
 filename = 'California, Climate Division 1, Average Temperature.csv';
@@ -141,7 +119,7 @@ T_CD_5= Time_All_CD_Temp (:,5);
 T_CD_6= Time_All_CD_Temp (:,6); 
 T_CD_7= Time_All_CD_Temp (:,7);
 
-%% Plotting Observed Precipitation Overtime in California  
+%% Plotting Observed Precipitation Overtime in California Climate Divisions 
 
 %Smoothing the Data to a 5-year moving mean (60 month values) 
 CD1_Smoothed_Precip = movmean(Precipitation_CD_1.Value, 60);
@@ -196,7 +174,7 @@ xlabel ('Year')
 ylabel ('Precipitation (in)')
 title ('Historical Observed Precipitation in California Climate Divisions from 1950 - Present')
 legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7','Trendline CD1','Trendline CD2','Trendline CD3','Trendline CD4','Trendline CD5','Trendline CD6','Trendline CD7','Location', 'eastoutside')
-
+%lgd.NumColumns = 2;
 %% %%Plotting Observed Average Temperature Overtime in California  
 
 %Smoothing the Data to a 5-year moving mean (60 month values) 
@@ -212,17 +190,17 @@ CD7_Smoothed_Temp = movmean(AverageTemp_CD_7.Value, 60);
 BF_T_CD1 = polyfit(T_CD_1,CD1_Smoothed_Temp,1);
 LBF_T_CD1 =polyval(BF_T_CD1,T_CD_1)
 BF_T_CD2 = polyfit(T_CD_2,CD2_Smoothed_Temp,1);
-LBF_T_CD2 =polyval(BF_P_CD2,T_CD_2)
+LBF_T_CD2 =polyval(BF_T_CD2,T_CD_2)
 BF_T_CD3 = polyfit(T_CD_3,CD3_Smoothed_Temp,1);
-LBF_T_CD3 =polyval(BF_P_CD3,T_CD_3)
+LBF_T_CD3 =polyval(BF_T_CD3,T_CD_3)
 BF_T_CD4 = polyfit(T_CD_4,CD4_Smoothed_Temp,1);
-LBF_T_CD4 =polyval(BF_P_CD4,T_CD_4)
+LBF_T_CD4 =polyval(BF_T_CD4,T_CD_4)
 BF_T_CD5 = polyfit(T_CD_5,CD5_Smoothed_Temp,1);
-LBF_T_CD5 =polyval(BF_P_CD5,T_CD_5)
+LBF_T_CD5 =polyval(BF_T_CD5,T_CD_5)
 BF_T_CD6 = polyfit(T_CD_6,CD6_Smoothed_Temp,1);
-LBF_T_CD6 =polyval(BF_P_CD6,T_CD_6)
+LBF_T_CD6 =polyval(BF_T_CD6,T_CD_6)
 BF_T_CD7 = polyfit(T_CD_7,CD7_Smoothed_Temp,1);
-LBF_T_CD7 =polyval(BF_P_CD7,T_CD_7)
+LBF_T_CD7 =polyval(BF_T_CD7,T_CD_7)
 
 %Plot of Historical Observed Temperature Data in California 
 figure(4); clf
@@ -250,7 +228,7 @@ datetick('x','YYYY','keeplimits')
 xlabel ('Year')
 ylabel ('Average Temperature ({^o}F)')
 title ('Historical Observed Average Temperature in California Climate Divisions from 1950 - Present')
-legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7', 'Location', 'southoutside')
+legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7','Trendline CD1','Trendline CD2','Trendline CD3','Trendline CD4','Trendline CD5','Trendline CD6','Trendline CD7','Location', 'eastoutside')
 
 %% Sequoia Forest Data
 
@@ -261,19 +239,20 @@ SQF_Climatology=readtable(filename);
 latlim= [32 42.5]
 lonlim = [-125 -114.133333]
 
-% figure (5); clf
-% ax= usamap(latlim,lonlim)
-% axis off
-% getm(gca, 'MapProjection')
-% states = shaperead('usastatehi',...
-%     'UseGeoCoords',true,'BoundingBox',[lonlim',latlim']);
-% faceColors = makesymbolspec('Polygon',...
-%     {'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))});
-% geoshow(ax,states,'SymbolSpec',faceColors)
-% scatterm(SQF_Climatology.LATITUDE(1), SQF_Climatology.LONGITUDE(1),60, 'p','filled','k')
-% title('Location of Sequoia Forest')
-
-%moved the SQF location onto figure 2 of wildfire graph 
+figure (2); clf
+ax= usamap(latlim,lonlim);
+axis off
+getm(gca, 'MapProjection')
+states = shaperead('usastatehi',...
+    'UseGeoCoords',true,'BoundingBox',[lonlim',latlim']);
+faceColors = makesymbolspec('Polygon',...
+    {'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))});
+geoshow(ax,states,'SymbolSpec',faceColors)
+scatterm(Wildfire_Locations_2020.latitude,Wildfire_Locations_2020.longitude,5,'filled','k')
+hold on 
+scatterm(SQF_Climatology.LATITUDE(1), SQF_Climatology.LONGITUDE(1),200, 'p','filled','r')
+title('Location of Wildfires in California in 2020')
+% legend ('Wildfire Events','Sequoia Forest Location')
 
 %% Plotting Historical Precipitation at SQF Station
 
@@ -284,8 +263,8 @@ xlabel('Year')
 ylabel ('Precipitation (in)') %%Is this in, cm, or mm
 title('Daily Recorded Precipitation at SQF from 1970 to Present')
 
-%Smoothing the Data to a 6-month moving mean (183 days)
-Smoothed_SQF_Precip = movmean(SQF_Climatology.PRCP(2189:end),183,'omitnan');
+%Smoothing the Data to a 2-year moving mean (730 days)
+Smoothed_SQF_Precip = movmean(SQF_Climatology.PRCP(2189:end),730,'omitnan');
 %added 'omitnan' to disregard nan values
 
 %Plot of Smoothed Historical Precipitation Data at Sequoia Forest
@@ -314,8 +293,8 @@ xlabel('Year')
 ylabel ('Temperature ({^o}F)') 
 title('Daily Recorded Temperature at SQF from 1970 to Present')
 
-%Smoothing the Data to a 6-month moving mean (183 days)
-Smoothed_SQF_Temp = movmean(SQF_Climatology.TOBS(2189:end),183, 'omitnan');
+%Smoothing the Data to a 2-year moving mean (730 days)
+Smoothed_SQF_Temp = movmean(SQF_Climatology.TOBS(2189:end),730, 'omitnan');
 %added 'omitnan' as well
 
 %Plot of Smoothed Historical Precipitation Data at Sequoia Forest
@@ -332,6 +311,18 @@ plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Temp,'Linewidth',1,'color', 'r'
 xlabel('Year')
 ylabel ('Temperature ({^o}F)') 
 title('Smoothed Daily Recorded Temperature Data at SQF from 1970 to Present')
+
+%% Future Predictions for Climatology and Wildfires
+
+%Sequoia Forest Precipitation Predictions 
+%Future_Years = [2020 2021 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 2037 2038 2039 2040 2041 2042 2043 2044 2045 2046 2047 2048 2049 2050];
+
+Timeline_SQF = SQF_Climatology.DATE(2189:end);
+
+%Linear Fit
+BF_SQF_P = polyfit(Timeline_SQF,Smoothed_SQF_Temp,1);
+%LBF_SQF_P =polyval(BF_SQF_P,Timeline_SQF);
+
 
 
 

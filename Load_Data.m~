@@ -224,28 +224,21 @@ LBF_T_CD6 =polyval(BF_P_CD6,T_CD_6)
 BF_T_CD7 = polyfit(T_CD_7,CD7_Smoothed_Temp,1);
 LBF_T_CD7 =polyval(BF_P_CD7,T_CD_7)
 
-%Plot of Historical Observed Temperature Data in California 
+%Plot of Historical Observed Precipitation Data in California 
 figure(4); clf
-plot(T_CD_1,CD1_Smoothed_Temp)
+plot(P_CD_1,CD1_Smoothed_Temp)
 hold on
-plot(T_CD_2,CD2_Smoothed_Temp)
+plot(P_CD_2,CD2_Smoothed_Temp)
 hold on
-plot(T_CD_3,CD3_Smoothed_Temp)
+plot(P_CD_3,CD3_Smoothed_Temp)
 hold on
-plot(T_CD_4,CD4_Smoothed_Temp)
+plot(P_CD_4,CD4_Smoothed_Temp)
 hold on
-plot(T_CD_5,CD5_Smoothed_Temp)
+plot(P_CD_5,CD5_Smoothed_Temp)
 hold on
-plot(T_CD_6,CD6_Smoothed_Temp)
+plot(P_CD_6,CD6_Smoothed_Temp)
 hold on
-plot(T_CD_7,CD7_Smoothed_Temp)
-plot(T_CD_1,LBF_T_CD1,'-.')
-plot(T_CD_2,LBF_T_CD2,'-.')
-plot(T_CD_3,LBF_T_CD3,'-.')
-plot(T_CD_4,LBF_T_CD4,'-.')
-plot(T_CD_5,LBF_T_CD5,'-.')
-plot(T_CD_6,LBF_T_CD6,'-.')
-plot(T_CD_7,LBF_T_CD7,'-.')
+plot(P_CD_7,CD7_Smoothed_Temp)
 datetick('x','YYYY','keeplimits')
 xlabel ('Year')
 ylabel ('Average Temperature ({^o}F)')

@@ -333,51 +333,35 @@ title('Smoothed Daily Recorded Temperature Data at SQF from 1970 to Present')
 %Sequoia Forest Precipitation Predictions 
 %Future_Years = [2020 2021 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 2037 2038 2039 2040 2041 2042 2043 2044 2045 2046 2047 2048 2049 2050];
 
+%Trend Line Slope and Intercept
 slope1 = BF_SQF_P(1,1);
 intercept1 = BF_SQF_P(1,2);
+
+%Creating Future Timeline
 t1=datetime(2021,1,1);
 t2=datetime(2050,1,1);
 formatOut = 'yyyy/mm/dd';
-Future_Years= t1:t2;
-SQF_Future_Years = datestr(Future_Years, formatOut);
-SQF_Proj_P = slope1.*SQF_Future_Years + intercept1;
+Future_Years= [t1:t2]';
+SQF_Future_Years = datenum(Future_Years);
+%%SQF_Future_Years = datestr(Future_Years, formatOut);
+
+%Creating Future Trend
+SQF_Proj_P = (slope1.* SQF_Future_Years) + intercept1;
 
 figure(12); clf
-plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Temp,'Linewidth',1,'color', 'r')
+plot(SQF_Future_Years,SQF_Proj_P, 'Linewidth', 2,'color', 'c')
 hold on
-plot(SQF_Climatology.DATE(2189:end), LBF_SQF_T, '-.b')
-hold on 
-plot(Future_Years,SQF_Proj_P)
+plot(SQF_Date_Conversion,Smoothed_SQF_Precip,'Linewidth',1,'color', 'r')
+hold on
+plot(SQF_Date_Conversion, LBF_SQF_P, '-.b')
 xlabel('Year')
 ylabel ('Temperature ({^o}F)') 
-title('Smoothed Daily Recorded Temperature Data at SQF from 1970 to Present')
-%legend
+title('Historical and Projected Temperatures at SQF Until to 2050')
+datetick ('x','yyyy')
+legend ('Projected Temperature Trend', 'Smoothed Temperature Data', 'Linear Trend')
 
 
 
-
-
-%hline
-% slope1 = BF_SQF_P(1,1)
-% intercept1 = BF_SQF_P(1,2)
-% SQF_Proj_P = refline(slope1,intercept1);
-
-
-
-
-
-
-
-
-%set up variable thats equation of line, and make an array with all x
-%values
-%m9x) + b = yall
-%plot (xall, yall) 
-
-%OR
-
-%hline/ refline function 
-%plug in M+B and makes like as long as we want to 
 
 
 

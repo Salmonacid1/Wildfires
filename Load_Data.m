@@ -132,19 +132,19 @@ CD7_Smoothed_Precip = movmean(Precipitation_CD_7.Value, 60);
 
 %Linear Fit of Climate Division Precipitation Data
 BF_P_CD1 = polyfit(P_CD_1,CD1_Smoothed_Precip,1);
-LBF_P_CD1 =polyval(BF_P_CD1,P_CD_1)
+LBF_P_CD1 =polyval(BF_P_CD1,P_CD_1);
 BF_P_CD2 = polyfit(P_CD_2,CD2_Smoothed_Precip,1);
-LBF_P_CD2 =polyval(BF_P_CD2,P_CD_2)
+LBF_P_CD2 =polyval(BF_P_CD2,P_CD_2);
 BF_P_CD3 = polyfit(P_CD_3,CD3_Smoothed_Precip,1);
-LBF_P_CD3 =polyval(BF_P_CD3,P_CD_3)
+LBF_P_CD3 =polyval(BF_P_CD3,P_CD_3);
 BF_P_CD4 = polyfit(P_CD_4,CD4_Smoothed_Precip,1);
-LBF_P_CD4 =polyval(BF_P_CD4,P_CD_4)
+LBF_P_CD4 =polyval(BF_P_CD4,P_CD_4);
 BF_P_CD5 = polyfit(P_CD_5,CD5_Smoothed_Precip,1);
-LBF_P_CD5 =polyval(BF_P_CD5,P_CD_5)
+LBF_P_CD5 =polyval(BF_P_CD5,P_CD_5);
 BF_P_CD6 = polyfit(P_CD_6,CD6_Smoothed_Precip,1);
-LBF_P_CD6 =polyval(BF_P_CD6,P_CD_6)
+LBF_P_CD6 =polyval(BF_P_CD6,P_CD_6);
 BF_P_CD7 = polyfit(P_CD_7,CD7_Smoothed_Precip,1);
-LBF_P_CD7 =polyval(BF_P_CD7,P_CD_7)
+LBF_P_CD7 =polyval(BF_P_CD7,P_CD_7);
 
 %Plot of Historical Observed Precipitation Data in California 
 figure(2); clf
@@ -189,19 +189,19 @@ CD7_Smoothed_Temp = movmean(AverageTemp_CD_7.Value, 60);
 
 %Line of Best Fit Temperature
 BF_T_CD1 = polyfit(T_CD_1,CD1_Smoothed_Temp,1);
-LBF_T_CD1 =polyval(BF_T_CD1,T_CD_1)
+LBF_T_CD1 =polyval(BF_T_CD1,T_CD_1);
 BF_T_CD2 = polyfit(T_CD_2,CD2_Smoothed_Temp,1);
-LBF_T_CD2 =polyval(BF_T_CD2,T_CD_2)
+LBF_T_CD2 =polyval(BF_T_CD2,T_CD_2);
 BF_T_CD3 = polyfit(T_CD_3,CD3_Smoothed_Temp,1);
-LBF_T_CD3 =polyval(BF_T_CD3,T_CD_3)
+LBF_T_CD3 =polyval(BF_T_CD3,T_CD_3);
 BF_T_CD4 = polyfit(T_CD_4,CD4_Smoothed_Temp,1);
-LBF_T_CD4 =polyval(BF_T_CD4,T_CD_4)
+LBF_T_CD4 =polyval(BF_T_CD4,T_CD_4);
 BF_T_CD5 = polyfit(T_CD_5,CD5_Smoothed_Temp,1);
-LBF_T_CD5 =polyval(BF_T_CD5,T_CD_5)
+LBF_T_CD5 =polyval(BF_T_CD5,T_CD_5);
 BF_T_CD6 = polyfit(T_CD_6,CD6_Smoothed_Temp,1);
-LBF_T_CD6 =polyval(BF_T_CD6,T_CD_6)
+LBF_T_CD6 =polyval(BF_T_CD6,T_CD_6);
 BF_T_CD7 = polyfit(T_CD_7,CD7_Smoothed_Temp,1);
-LBF_T_CD7 =polyval(BF_T_CD7,T_CD_7)
+LBF_T_CD7 =polyval(BF_T_CD7,T_CD_7);
 
 %Plot of Historical Observed Temperature Data in California 
 figure(3); clf
@@ -333,22 +333,36 @@ title('Smoothed Daily Recorded Temperature Data at SQF from 1970 to Present')
 %Sequoia Forest Precipitation Predictions 
 %Future_Years = [2020 2021 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 2037 2038 2039 2040 2041 2042 2043 2044 2045 2046 2047 2048 2049 2050];
 
+slope1 = BF_SQF_P(1,1);
+intercept1 = BF_SQF_P(1,2);
+t1=datetime(2021,1,1);
+t2=datetime(2050,1,1);
+formatOut = 'yyyy/mm/dd';
+Future_Years= t1:t2;
+SQF_Future_Years = datestr(Future_Years, formatOut);
+SQF_Proj_P = slope1.*SQF_Future_Years + intercept1;
+
+figure(12); clf
+plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Temp,'Linewidth',1,'color', 'r')
+hold on
+plot(SQF_Climatology.DATE(2189:end), LBF_SQF_T, '-.b')
+hold on 
+plot(Future_Years,SQF_Proj_P)
+xlabel('Year')
+ylabel ('Temperature ({^o}F)') 
+title('Smoothed Daily Recorded Temperature Data at SQF from 1970 to Present')
+%legend
+
+
+
+
+
 %hline
-slope1 = BF_SQF_P(1,1)
-intercept1 = BF_SQF_P(1,2)
-SQF_Proj_P = refline(slope1,intercept1);
-
-figure(12);clf
-plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Precip,'Linewidth',1,'color', 'r')
-SQF_Proj_P = refline(slope1,intercept1)
+% slope1 = BF_SQF_P(1,1)
+% intercept1 = BF_SQF_P(1,2)
+% SQF_Proj_P = refline(slope1,intercept1);
 
 
-% hold on
-% plot(SQF_Climatology.DATE(2189:end), LBF_SQF_P, '-.b') 
-% xlabel('Year')
-% ylabel ('Precipitation (in)') %%Is this in, cm, or mm
-% title('Smoothed Daily Recorded Precipitation at SQF from 1970 to Present')
-% %legend
 
 
 

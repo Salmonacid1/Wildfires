@@ -7,10 +7,10 @@ Total_Burned(9,2)=209815; %had to fill in value from table because comma caused 
 
 %Graphing Exploratory 
 figure (1)
-bar(Total_Burned(:,1),Total_Burned(:,2))
+bar(Total_Burned(:,1),Total_Burned(:,2), 'FaceColor', '#77AC30')
 xlabel("Year")
 ylabel("Acres Burned")
-title("Acres Burned due to Wildfires from 1987-2018")
+title("Acres Burned due to California Wildfires from 1987-2018")
 
 %% Spatial Data for 2020 Wildfires in California
 
@@ -148,31 +148,31 @@ LBF_P_CD7 =polyval(BF_P_CD7,P_CD_7);
 
 %Plot of Historical Observed Precipitation Data in California 
 figure(2); clf
-plot(P_CD_1,CD1_Smoothed_Precip)
+plot(P_CD_1,CD1_Smoothed_Precip,'LineWidth', 0.5)
 hold on
-plot(P_CD_2,CD2_Smoothed_Precip)
+plot(P_CD_2,CD2_Smoothed_Precip,'LineWidth', 0.5)
 hold on
-plot(P_CD_3,CD3_Smoothed_Precip)
+plot(P_CD_3,CD3_Smoothed_Precip,'LineWidth', 0.5)
 hold on
-plot(P_CD_4,CD4_Smoothed_Precip)
+plot(P_CD_4,CD4_Smoothed_Precip,'LineWidth', 0.5)
 hold on
-plot(P_CD_5,CD5_Smoothed_Precip)
+plot(P_CD_5,CD5_Smoothed_Precip,'LineWidth', 0.5)
 hold on
-plot(P_CD_6,CD6_Smoothed_Precip)
+plot(P_CD_6,CD6_Smoothed_Precip,'LineWidth', 0.5)
 hold on
-plot(P_CD_7,CD7_Smoothed_Precip)
+plot(P_CD_7,CD7_Smoothed_Precip,'LineWidth', 0.5)
 hold on 
-plot(P_CD_1,LBF_P_CD1,'-.')
-plot(P_CD_2,LBF_P_CD2,'-.')
-plot(P_CD_3,LBF_P_CD3,'-.')
-plot(P_CD_4,LBF_P_CD4,'-.')
-plot(P_CD_5,LBF_P_CD5,'-.')
-plot(P_CD_6,LBF_P_CD6,'-.')
-plot(P_CD_7,LBF_P_CD7,'-.')
+plot(P_CD_1,LBF_P_CD1,'-.', 'LineWidth', 1)
+plot(P_CD_2,LBF_P_CD2,'-.', 'LineWidth', 1)
+plot(P_CD_3,LBF_P_CD3,'-.', 'LineWidth', 1)
+plot(P_CD_4,LBF_P_CD4,'-.', 'LineWidth', 1)
+plot(P_CD_5,LBF_P_CD5,'-.', 'LineWidth', 1)
+plot(P_CD_6,LBF_P_CD6,'-.', 'LineWidth', 1)
+plot(P_CD_7,LBF_P_CD7,'-.', 'LineWidth', 1)
 datetick('x','YYYY','keeplimits')
 xlabel ('Year')
 ylabel ('Precipitation (in)')
-title ('Historical Observed Precipitation in California Climate Divisions from 1950 - Present')
+title ('Observed Precipitation in California from 1950 - Present')
 lgd = legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7','Trendline Climate Division 1','Trendline Climate Division 2','Trendline Climate Division 3','Trendline Climate Division 4','Trendline Climate Division 5','Trendline Climate Division 6','Trendline Climate Division 7','Location', 'southoutside')
 lgd.NumColumns = 2
 
@@ -205,6 +205,301 @@ LBF_T_CD7 =polyval(BF_T_CD7,T_CD_7);
 
 %Plot of Historical Observed Temperature Data in California 
 figure(3); clf
+plot(T_CD_1,CD1_Smoothed_Temp,'LineWidth', 0.5)
+hold on
+plot(T_CD_2,CD2_Smoothed_Temp,'LineWidth', 0.5)
+hold on
+plot(T_CD_3,CD3_Smoothed_Temp,'LineWidth', 0.5)
+hold on
+plot(T_CD_4,CD4_Smoothed_Temp,'LineWidth', 0.5)
+hold on
+plot(T_CD_5,CD5_Smoothed_Temp,'LineWidth', 0.5)
+hold on
+plot(T_CD_6,CD6_Smoothed_Temp,'LineWidth', 0.5)
+hold on
+plot(T_CD_7,CD7_Smoothed_Temp,'LineWidth', 0.5)
+plot(T_CD_1,LBF_T_CD1,'-.', 'LineWidth', 1)
+plot(T_CD_2,LBF_T_CD2,'-.', 'LineWidth', 1)
+plot(T_CD_3,LBF_T_CD3,'-.', 'LineWidth', 1)
+plot(T_CD_4,LBF_T_CD4,'-.', 'LineWidth', 1)
+plot(T_CD_5,LBF_T_CD5,'-.', 'LineWidth', 1)
+plot(T_CD_6,LBF_T_CD6,'-.', 'LineWidth', 1)
+plot(T_CD_7,LBF_T_CD7,'-.', 'LineWidth', 1)
+datetick('x','YYYY','keeplimits')
+xlabel ('Year')
+ylabel ('Temperature ({^o}F)')
+title ('Observed Average Temperature in California from 1950 - Present')
+lgd = legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7','Trendline Climate Division 1','Trendline Climate Division 2','Trendline Climate Division 3','Trendline Climate Division 4','Trendline Climate Division 5','Trendline Climate Division 6','Trendline Climate Division 7','Location', 'southoutside')
+lgd.NumColumns = 2
+%% Sequoia Forest Data
+
+filename = 'SQF Location Temp.csv';
+SQF_Climatology=readtable(filename);
+
+%Exploratory Figure - Location of SQF Lodegpole Station
+latlim= [32 42.5]
+lonlim = [-125 -114.133333]
+
+figure (4); clf
+ax= usamap(latlim,lonlim);
+axis off
+getm(gca, 'MapProjection')
+states = shaperead('usastatehi',...
+    'UseGeoCoords',true,'BoundingBox',[lonlim',latlim']);
+faceColors = makesymbolspec('Polygon',...
+    {'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))});
+geoshow(ax,states,'SymbolSpec',faceColors)
+h(1)= scatterm(Wildfire_Locations_2020.latitude,Wildfire_Locations_2020.longitude,5,'filled','k', 'DisplayName', '2020 Wildfire Events')
+hold on 
+h(2) = scatterm(SQF_Climatology.LATITUDE(1), SQF_Climatology.LONGITUDE(1),200, 'p','filled','r', 'DisplayName', 'Sequoia Forest')
+title('Location of Calfornia Wildfires in 2020')
+legend(h)
+
+%% Plotting Historical Precipitation at SQF Station
+
+%Exploratory Graph: Plotting Observed Daily Precipitation Amounts
+figure(5);clf
+scatter(SQF_Climatology.DATE(2189:end), SQF_Climatology.PRCP(2189:end), '.')
+xlabel('Year')
+ylabel ('Precipitation (in)') %%Is this in, cm, or mm
+title('Daily Recorded Precipitation at SQF from 1970 to Present')
+legend ('Observed Precipitation', 'Box', 'on')
+
+%Smoothing the Data to a 2-year moving mean (730 days)
+Smoothed_SQF_Precip = movmean(SQF_Climatology.PRCP(2189:end),730,'omitnan');
+%added 'omitnan' to disregard nan values
+
+%Linear Fit of Data
+SQF_Date_Conversion = datenum(SQF_Climatology.DATE(2189:end));
+BF_SQF_P = polyfit(SQF_Date_Conversion,Smoothed_SQF_Precip,1);
+LBF_SQF_P =polyval(BF_SQF_P,SQF_Date_Conversion);
+
+%Exploratory Graph: Plot of Smoothed Historical Precipitation Data at Sequoia Forest
+figure (6); clf
+scatter(SQF_Climatology.DATE(2189:end), SQF_Climatology.PRCP(2189:end), '.')
+xlabel('Year')
+ylabel ('Precipitation (in)') 
+title('Daily Recorded Precipitation at SQF from 1970 to Present')
+hold on
+plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Precip,'Linewidth',2,'color', 'r')
+legend('Observed Precipitation', 'Smoothed Precipitation Data')
+
+figure(7);clf
+plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Precip,'Linewidth',0.9,'color', '#0072BD')
+hold on
+plot(SQF_Climatology.DATE(2189:end), LBF_SQF_P, '-.', 'Linewidth', 1.2, 'color', '#77AC30') 
+xlabel('Year')
+ylabel ('Precipitation (in)') 
+title('Observed Daily Precipitation at Sequoia Forest from 1970 to Present')
+legend ('Smoothed Precipitation Data','Linear Trend', 'Box', 'on')
+
+
+
+%% Plotting Historical Temperature at SQF Station
+
+%Exploratory Graph: Plotting Observed Daily Temperatures
+figure(8);clf
+scatter(SQF_Climatology.DATE(2189:end), SQF_Climatology.TOBS(2189:end), '.')
+xlabel('Year')
+ylabel ('Temperature ({^o}F)') 
+title('Daily Recorded Temperature at SQF from 1970 to Present')
+
+%Smoothing the Data to a 2-year moving mean (730 days)
+Smoothed_SQF_Temp = movmean(SQF_Climatology.TOBS(2189:end),730, 'omitnan');
+%added 'omitnan' as well
+
+%Linear Fit of Data
+BF_SQF_T = polyfit(SQF_Date_Conversion,Smoothed_SQF_Temp,1);
+LBF_SQF_T =polyval(BF_SQF_T,SQF_Date_Conversion);
+
+%Exploratory Graph: Plot of Smoothed Historical Precipitation Data at Sequoia Forest
+figure(9); clf
+scatter(SQF_Climatology.DATE(2189:end), SQF_Climatology.TOBS(2189:end), '.')
+xlabel('Year')
+ylabel ('Temperature ({^o}F)') 
+title('Daily Recorded Temperature at SQF from 1970 to Present')
+hold on
+plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Temp,'Linewidth',2,'color', 'r')
+
+figure(11);clf
+plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Temp,'Linewidth',0.9,'color', '#0072BD')
+hold on
+plot(SQF_Climatology.DATE(2189:end), LBF_SQF_T, '-.', 'Linewidth', 1.2, 'color', '#77AC30') 
+xlabel('Year')
+ylabel ('Temperature ({^o}F)') 
+title('Observed Daily Average Temperature at Sequoia Forest from 1970 to Present')
+legend ({'Smoothed Observered Temperature Data','Linear Trend'}, 'Box', 'on')
+
+%% Sequoia Forest Precipitation Predictions 
+
+%Trend Line Slope and Intercept
+slope1 = BF_SQF_P(1,1);
+intercept1 = BF_SQF_P(1,2);
+
+%Creating Future Timeline
+t1=datetime(2021,1,1);
+t2=datetime(2050,1,1);
+formatOut = 'yyyy/mm/dd';
+Future_Years= [t1:t2]';
+SQF_Future_Years = datenum(Future_Years);
+%%SQF_Future_Years = datestr(Future_Years, formatOut);
+
+%Creating Future Trend
+SQF_Proj_P = (slope1.* SQF_Future_Years) + intercept1;
+
+figure(12); clf
+plot(SQF_Future_Years,SQF_Proj_P, '-.','Linewidth', 1.5,'color','#D95319')
+hold on
+plot(SQF_Date_Conversion,Smoothed_SQF_Precip,'Linewidth',1,'color', '#0072BD')
+hold on
+plot(SQF_Date_Conversion, LBF_SQF_P, '-.', 'Linewidth', 1,'color','#77AC30')
+xlabel('Year')
+ylabel ('Precipitation (in)') 
+title('Projected Precipitation Trend at Sequoia Forest')
+datetick ('x','yyyy')
+legend ('Projected Precipitation Trend', 'Smoothed Precipitation Data', 'Historical Linear Trend', 'Box', 'on')
+
+%% Sequoia Forest Temperature Predictions 
+
+%Trend Line Slope and Intercept
+slope2 = BF_SQF_T(1,1);
+intercept2 = BF_SQF_T(1,2);
+SQF_Proj_T = (slope2.* SQF_Future_Years) + intercept2;
+
+figure(13); clf
+plot(SQF_Future_Years,SQF_Proj_T,'-.','Linewidth', 1.5,'color','#D95319')
+hold on
+plot(SQF_Date_Conversion,Smoothed_SQF_Temp,'Linewidth',1,'color', '#0072BD')
+hold on
+plot(SQF_Date_Conversion, LBF_SQF_T,'-.', 'Linewidth', 1,'color','#77AC30')
+xlabel('Year')
+ylabel ('Temperature ({^o}F)') 
+title('Projected Temperature Trend at Sequoia Forest')
+datetick ('x','yyyy')
+legend ('Projected Temperature Trend', 'Smoothed Temperature Data', 'Linear Trend', 'Box', 'on')
+
+%% California Climate Divisions Precipitation Predictions 
+
+
+%Creating Future Timeline
+t1=datetime(2021,1,1);
+t2=datetime(2050,1,1);
+Future_Years= [t1:t2]';
+CD_Future_Years = datenum(Future_Years);
+
+%Trend Lines, Slope, and Intercept
+CD1_slope = BF_P_CD1(1,1); 
+CD1_intercept = BF_P_CD1(1,2);
+CD2_slope = BF_P_CD2(1,1); 
+CD2_intercept = BF_P_CD2(1,2);
+CD3_slope = BF_P_CD3(1,1); 
+CD3_intercept = BF_P_CD3(1,2);
+CD4_slope = BF_P_CD4(1,1); 
+CD4_intercept = BF_P_CD4(1,2);
+CD5_slope = BF_P_CD5(1,1); 
+CD5_intercept = BF_P_CD5(1,2);
+CD6_slope = BF_P_CD6(1,1); 
+CD6_intercept = BF_P_CD6(1,2);
+CD7_slope = BF_P_CD7(1,1); 
+CD7_intercept = BF_P_CD7(1,2);
+
+%Creating Future Trend
+Proj_P_CD1 = (CD1_slope.* CD_Future_Years) + CD1_intercept;
+Proj_P_CD2 = (CD2_slope.* CD_Future_Years) + CD2_intercept;
+Proj_P_CD3 = (CD3_slope.* CD_Future_Years) + CD3_intercept;
+Proj_P_CD4 = (CD4_slope.* CD_Future_Years) + CD4_intercept;
+Proj_P_CD5 = (CD5_slope.* CD_Future_Years) + CD5_intercept;
+Proj_P_CD6 = (CD6_slope.* CD_Future_Years) + CD6_intercept;
+Proj_P_CD7 = (CD7_slope.* CD_Future_Years) + CD7_intercept;
+
+figure(14); clf
+plot(CD_Future_Years,Proj_P_CD1, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_P_CD2, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_P_CD3, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_P_CD4, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_P_CD5, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_P_CD6, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_P_CD7, 'Linewidth', 1)
+hold on
+plot(P_CD_1,CD1_Smoothed_Precip)
+hold on
+plot(P_CD_2,CD2_Smoothed_Precip)
+hold on
+plot(P_CD_3,CD3_Smoothed_Precip)
+hold on
+plot(P_CD_4,CD4_Smoothed_Precip)
+hold on
+plot(P_CD_5,CD5_Smoothed_Precip)
+hold on
+plot(P_CD_6,CD6_Smoothed_Precip)
+hold on
+plot(P_CD_7,CD7_Smoothed_Precip)
+hold on 
+plot(P_CD_1,LBF_P_CD1,'-.')
+plot(P_CD_2,LBF_P_CD2,'-.')
+plot(P_CD_3,LBF_P_CD3,'-.')
+plot(P_CD_4,LBF_P_CD4,'-.')
+plot(P_CD_5,LBF_P_CD5,'-.')
+plot(P_CD_6,LBF_P_CD6,'-.')
+plot(P_CD_7,LBF_P_CD7,'-.')
+datetick('x','YYYY','keeplimits')
+xlabel ('Year')
+ylabel ('Precipitation (in)')
+title ('Historical and Projected Precipitation in California Climate Divisions until 2050')
+lgd = legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7',...
+    'Trendline Climate Division 1','Trendline Climate Division 2','Trendline Climate Division 3','Trendline Climate Division 4','Trendline Climate Division 5','Trendline Climate Division 6','Trendline Climate Division 7',...
+    'Climate Division 1 Projected Trend', 'Climate Division 2 Projected Trend', 'Climate Division 3 Projected Trend', 'Climate Division 4 Projected Trend', 'Climate Division 5 Projected Trend', 'Climate Division 6 Projected Trend', 'Climate Division 7 Projected Trend',...
+    'Location', 'southoutside')
+lgd.NumColumns = 3
+
+%% California Climate Divisions Temperature Predictions 
+
+%Trend Lines, Slope, and Intercept
+CD1_slope = BF_T_CD1(1,1); 
+CD1_intercept = BF_T_CD1(1,2);
+CD2_slope = BF_T_CD2(1,1); 
+CD2_intercept = BF_T_CD2(1,2);
+CD3_slope = BF_T_CD3(1,1); 
+CD3_intercept = BF_T_CD3(1,2);
+CD4_slope = BF_T_CD4(1,1); 
+CD4_intercept = BF_T_CD4(1,2);
+CD5_slope = BF_T_CD5(1,1); 
+CD5_intercept = BF_T_CD5(1,2);
+CD6_slope = BF_T_CD6(1,1); 
+CD6_intercept = BF_T_CD6(1,2);
+CD7_slope = BF_T_CD7(1,1); 
+CD7_intercept = BF_T_CD7(1,2);
+
+%Creating Future Trend
+Proj_T_CD1 = (CD1_slope.* CD_Future_Years) + CD1_intercept;
+Proj_T_CD2 = (CD2_slope.* CD_Future_Years) + CD2_intercept;
+Proj_T_CD3 = (CD3_slope.* CD_Future_Years) + CD3_intercept;
+Proj_T_CD4 = (CD4_slope.* CD_Future_Years) + CD4_intercept;
+Proj_T_CD5 = (CD5_slope.* CD_Future_Years) + CD5_intercept;
+Proj_T_CD6 = (CD6_slope.* CD_Future_Years) + CD6_intercept;
+Proj_T_CD7 = (CD7_slope.* CD_Future_Years) + CD7_intercept;
+
+figure(15); clf
+plot(CD_Future_Years,Proj_T_CD1, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_T_CD2, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_T_CD3, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_T_CD4, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_T_CD5, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_T_CD6, 'Linewidth', 1)
+hold on
+plot(CD_Future_Years,Proj_T_CD7, 'Linewidth', 1)
+hold on
 plot(T_CD_1,CD1_Smoothed_Temp)
 hold on
 plot(T_CD_2,CD2_Smoothed_Temp)
@@ -228,139 +523,49 @@ plot(T_CD_7,LBF_T_CD7,'-.')
 datetick('x','YYYY','keeplimits')
 xlabel ('Year')
 ylabel ('Average Temperature ({^o}F)')
-title ('Historical Observed Average Temperature in California Climate Divisions from 1950 - Present')
-lgd = legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7','Trendline Climate Division 1','Trendline Climate Division 2','Trendline Climate Division 3','Trendline Climate Division 4','Trendline Climate Division 5','Trendline Climate Division 6','Trendline Climate Division 7','Location', 'southoutside')
-lgd.NumColumns = 2
-%% Sequoia Forest Data
+title ('Historical and Projected Temperature in California Climate Divisions until 2050')
+lgd = legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7',...
+    'Trendline Climate Division 1','Trendline Climate Division 2','Trendline Climate Division 3','Trendline Climate Division 4','Trendline Climate Division 5','Trendline Climate Division 6','Trendline Climate Division 7',...
+    'Climate Division 1 Projected Trend', 'Climate Division 2 Projected Trend', 'Climate Division 3 Projected Trend', 'Climate Division 4 Projected Trend', 'Climate Division 5 Projected Trend', 'Climate Division 6 Projected Trend', 'Climate Division 7 Projected Trend',...
+    'Location', 'southoutside')
+lgd.NumColumns = 3
 
-filename = 'SQF Location Temp.csv';
-SQF_Climatology=readtable(filename);
+%% Acres Burned by Wildfires Prediction 
 
-%Exploratory Figure - Location of SQF Lodegpole Station
-latlim= [32 42.5]
-lonlim = [-125 -114.133333]
+figure (16); clf
+plot(Total_Burned(:,1),Total_Burned(:,2), '.', 'MarkerSize', 8)
+xlabel("Year")
+ylabel("Acres Burned")
+title("Acres Burned due to Wildfires from 1987-2018")
 
-figure (4); clf
-ax= usamap(latlim,lonlim);
-axis off
-getm(gca, 'MapProjection')
-states = shaperead('usastatehi',...
-    'UseGeoCoords',true,'BoundingBox',[lonlim',latlim']);
-faceColors = makesymbolspec('Polygon',...
-    {'INDEX',[1 numel(states)],'FaceColor',polcmap(numel(states))});
-geoshow(ax,states,'SymbolSpec',faceColors)
-scatterm(Wildfire_Locations_2020.latitude,Wildfire_Locations_2020.longitude,5,'filled','k')
+%Trend Line
+Wildfire_Time = Total_Burned(:,1);
+Wildfire_BF = polyfit(Total_Burned(:,1), Total_Burned(:,2), 1);
+Wildfire_LBF = polyval(Wildfire_BF, Total_Burned(:,1));
+
+figure (17); clf
+plot(Total_Burned(:,1),Total_Burned(:,2), '.', 'MarkerSize', 8)
+hold on
+plot(Total_Burned(:,1), Wildfire_LBF)
+xlabel("Year")
+ylabel("Acres Burned")
+title("Acres Burned due to Wildfires from 1987-2018")
+
+%%Projections Trend Line
+slope1= Wildfire_BF(1,1)
+intercept1=Wildfire_BF(1,2)
+Wildfire_Future_Time = [2018:1:2050]'
+Proj_Acres_Burned = slope1.*Wildfire_Future_Time + intercept1;
+
+figure (18); clf
+plot(Total_Burned(:,1),Total_Burned(:,2), '.', 'MarkerSize', 8)
+hold on
+plot(Total_Burned(:,1), Wildfire_LBF)
 hold on 
-scatterm(SQF_Climatology.LATITUDE(1), SQF_Climatology.LONGITUDE(1),200, 'p','filled','r')
-title('Location of Wildfires in California in 2020')
-% legend ('Wildfire Events','Sequoia Forest Location')
-
-%% Plotting Historical Precipitation at SQF Station
-
-%Plotting Observed Daily Precipitation Amounts
-figure(5);clf
-scatter(SQF_Climatology.DATE(2189:end), SQF_Climatology.PRCP(2189:end), '.')
-xlabel('Year')
-ylabel ('Precipitation (in)') %%Is this in, cm, or mm
-title('Daily Recorded Precipitation at SQF from 1970 to Present')
-
-%Smoothing the Data to a 2-year moving mean (730 days)
-Smoothed_SQF_Precip = movmean(SQF_Climatology.PRCP(2189:end),730,'omitnan');
-%added 'omitnan' to disregard nan values
-
-%Linear Fit of Data
-SQF_Date_Conversion = datenum(SQF_Climatology.DATE(2189:end));
-BF_SQF_P = polyfit(SQF_Date_Conversion,Smoothed_SQF_Precip,1);
-LBF_SQF_P =polyval(BF_SQF_P,SQF_Date_Conversion);
-
-%Plot of Smoothed Historical Precipitation Data at Sequoia Forest
-figure (6); clf
-scatter(SQF_Climatology.DATE(2189:end), SQF_Climatology.PRCP(2189:end), '.')
-xlabel('Year')
-ylabel ('Precipitation (in)') %%Is this in, cm, or mm
-title('Daily Recorded Precipitation at SQF from 1970 to Present')
-hold on
-plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Precip,'Linewidth',2,'color', 'r')
-
-figure(7);clf
-plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Precip,'Linewidth',1,'color', 'r')
-hold on
-plot(SQF_Climatology.DATE(2189:end), LBF_SQF_P, '-.b') 
-xlabel('Year')
-ylabel ('Precipitation (in)') %%Is this in, cm, or mm
-title('Smoothed Daily Recorded Precipitation at SQF from 1970 to Present')
-%legend
-
-
-
-%% Plotting Historical Temperature at SQF Station
-
-%Plotting Observed Daily Temperatures
-figure(8);clf
-scatter(SQF_Climatology.DATE(2189:end), SQF_Climatology.TOBS(2189:end), '.')
-xlabel('Year')
-ylabel ('Temperature ({^o}F)') 
-title('Daily Recorded Temperature at SQF from 1970 to Present')
-
-%Smoothing the Data to a 2-year moving mean (730 days)
-Smoothed_SQF_Temp = movmean(SQF_Climatology.TOBS(2189:end),730, 'omitnan');
-%added 'omitnan' as well
-
-%Linear Fit of Data
-BF_SQF_T = polyfit(SQF_Date_Conversion,Smoothed_SQF_Temp,1);
-LBF_SQF_T =polyval(BF_SQF_T,SQF_Date_Conversion);
-
-%Plot of Smoothed Historical Precipitation Data at Sequoia Forest
-figure(9); clf
-scatter(SQF_Climatology.DATE(2189:end), SQF_Climatology.TOBS(2189:end), '.')
-xlabel('Year')
-ylabel ('Temperature ({^o}F)') 
-title('Daily Recorded Temperature at SQF from 1970 to Present')
-hold on
-plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Temp,'Linewidth',2,'color', 'r')
-
-figure(11);clf
-plot(SQF_Climatology.DATE(2189:end),Smoothed_SQF_Temp,'Linewidth',1,'color', 'r')
-hold on
-plot(SQF_Climatology.DATE(2189:end), LBF_SQF_T, '-.b')
-xlabel('Year')
-ylabel ('Temperature ({^o}F)') 
-title('Smoothed Daily Recorded Temperature Data at SQF from 1970 to Present')
-%legend
-
-%% Future Predictions for Climatology and Wildfires
-
-%Sequoia Forest Precipitation Predictions 
-%Future_Years = [2020 2021 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 2037 2038 2039 2040 2041 2042 2043 2044 2045 2046 2047 2048 2049 2050];
-
-%Trend Line Slope and Intercept
-slope1 = BF_SQF_P(1,1);
-intercept1 = BF_SQF_P(1,2);
-
-%Creating Future Timeline
-t1=datetime(2021,1,1);
-t2=datetime(2050,1,1);
-formatOut = 'yyyy/mm/dd';
-Future_Years= [t1:t2]';
-SQF_Future_Years = datenum(Future_Years);
-%%SQF_Future_Years = datestr(Future_Years, formatOut);
-
-%Creating Future Trend
-SQF_Proj_P = (slope1.* SQF_Future_Years) + intercept1;
-
-figure(12); clf
-plot(SQF_Future_Years,SQF_Proj_P, 'Linewidth', 2,'color', 'c')
-hold on
-plot(SQF_Date_Conversion,Smoothed_SQF_Precip,'Linewidth',1,'color', 'r')
-hold on
-plot(SQF_Date_Conversion, LBF_SQF_P, '-.b')
-xlabel('Year')
-ylabel ('Temperature ({^o}F)') 
-title('Historical and Projected Temperatures at SQF Until to 2050')
-datetick ('x','yyyy')
-legend ('Projected Temperature Trend', 'Smoothed Temperature Data', 'Linear Trend')
-
-
+plot(Wildfire_Future_Time, Proj_Acres_Burned)
+xlabel("Year")
+ylabel("Acres Burned")
+title("Historical and Projected Acres Burned due to Wildfires until 2050")
 
 
 

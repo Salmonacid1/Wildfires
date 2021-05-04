@@ -413,19 +413,19 @@ Proj_P_CD6 = (CD6_slope.* CD_Future_Years) + CD6_intercept;
 Proj_P_CD7 = (CD7_slope.* CD_Future_Years) + CD7_intercept;
 
 figure(14); clf
-plot(CD_Future_Years,Proj_P_CD1, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_P_CD1,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_P_CD2, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_P_CD2,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_P_CD3, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_P_CD3,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_P_CD4, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_P_CD4,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_P_CD5, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_P_CD5,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_P_CD6, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_P_CD6,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_P_CD7, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_P_CD7,'-.', 'Linewidth', 1)
 hold on
 plot(P_CD_1,CD1_Smoothed_Precip)
 hold on
@@ -441,20 +441,20 @@ plot(P_CD_6,CD6_Smoothed_Precip)
 hold on
 plot(P_CD_7,CD7_Smoothed_Precip)
 hold on 
-plot(P_CD_1,LBF_P_CD1,'-.')
-plot(P_CD_2,LBF_P_CD2,'-.')
-plot(P_CD_3,LBF_P_CD3,'-.')
-plot(P_CD_4,LBF_P_CD4,'-.')
-plot(P_CD_5,LBF_P_CD5,'-.')
-plot(P_CD_6,LBF_P_CD6,'-.')
-plot(P_CD_7,LBF_P_CD7,'-.')
+plot(P_CD_1,LBF_P_CD1)
+plot(P_CD_2,LBF_P_CD2)
+plot(P_CD_3,LBF_P_CD3)
+plot(P_CD_4,LBF_P_CD4)
+plot(P_CD_5,LBF_P_CD5)
+plot(P_CD_6,LBF_P_CD6)
+plot(P_CD_7,LBF_P_CD7)
 datetick('x','YYYY','keeplimits')
 xlabel ('Year')
 ylabel ('Precipitation (in)')
 title ('Historical and Projected Precipitation in California Climate Divisions until 2050')
-lgd = legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7',...
+lgd = legend ('Climate Division 1 Projected Trend', 'Climate Division 2 Projected Trend', 'Climate Division 3 Projected Trend', 'Climate Division 4 Projected Trend', 'Climate Division 5 Projected Trend', 'Climate Division 6 Projected Trend', 'Climate Division 7 Projected Trend',...
+    'Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7',...
     'Trendline Climate Division 1','Trendline Climate Division 2','Trendline Climate Division 3','Trendline Climate Division 4','Trendline Climate Division 5','Trendline Climate Division 6','Trendline Climate Division 7',...
-    'Climate Division 1 Projected Trend', 'Climate Division 2 Projected Trend', 'Climate Division 3 Projected Trend', 'Climate Division 4 Projected Trend', 'Climate Division 5 Projected Trend', 'Climate Division 6 Projected Trend', 'Climate Division 7 Projected Trend',...
     'Location', 'southoutside')
 lgd.NumColumns = 3
 
@@ -486,19 +486,19 @@ Proj_T_CD6 = (CD6_slope.* CD_Future_Years) + CD6_intercept;
 Proj_T_CD7 = (CD7_slope.* CD_Future_Years) + CD7_intercept;
 
 figure(15); clf
-plot(CD_Future_Years,Proj_T_CD1, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_T_CD1,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_T_CD2, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_T_CD2,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_T_CD3, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_T_CD3,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_T_CD4, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_T_CD4,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_T_CD5, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_T_CD5,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_T_CD6, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_T_CD6,'-.', 'Linewidth', 1)
 hold on
-plot(CD_Future_Years,Proj_T_CD7, 'Linewidth', 1)
+plot(CD_Future_Years,Proj_T_CD7,'-.', 'Linewidth', 1)
 hold on
 plot(T_CD_1,CD1_Smoothed_Temp)
 hold on
@@ -513,20 +513,20 @@ hold on
 plot(T_CD_6,CD6_Smoothed_Temp)
 hold on
 plot(T_CD_7,CD7_Smoothed_Temp)
-plot(T_CD_1,LBF_T_CD1,'-.')
-plot(T_CD_2,LBF_T_CD2,'-.')
-plot(T_CD_3,LBF_T_CD3,'-.')
-plot(T_CD_4,LBF_T_CD4,'-.')
-plot(T_CD_5,LBF_T_CD5,'-.')
-plot(T_CD_6,LBF_T_CD6,'-.')
-plot(T_CD_7,LBF_T_CD7,'-.')
+plot(T_CD_1,LBF_T_CD1)
+plot(T_CD_2,LBF_T_CD2)
+plot(T_CD_3,LBF_T_CD3)
+plot(T_CD_4,LBF_T_CD4)
+plot(T_CD_5,LBF_T_CD5)
+plot(T_CD_6,LBF_T_CD6)
+plot(T_CD_7,LBF_T_CD7)
 datetick('x','YYYY','keeplimits')
 xlabel ('Year')
 ylabel ('Average Temperature ({^o}F)')
 title ('Historical and Projected Temperature in California Climate Divisions until 2050')
-lgd = legend ('Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7',...
+lgd = legend ('Climate Division 1 Projected Trend', 'Climate Division 2 Projected Trend', 'Climate Division 3 Projected Trend', 'Climate Division 4 Projected Trend', 'Climate Division 5 Projected Trend', 'Climate Division 6 Projected Trend', 'Climate Division 7 Projected Trend',...
+    'Climate Division 1','Climate Division 2','Climate Division 3','Climate Division 4','Climate Division 5','Climate Division 6','Climate Division 7',...
     'Trendline Climate Division 1','Trendline Climate Division 2','Trendline Climate Division 3','Trendline Climate Division 4','Trendline Climate Division 5','Trendline Climate Division 6','Trendline Climate Division 7',...
-    'Climate Division 1 Projected Trend', 'Climate Division 2 Projected Trend', 'Climate Division 3 Projected Trend', 'Climate Division 4 Projected Trend', 'Climate Division 5 Projected Trend', 'Climate Division 6 Projected Trend', 'Climate Division 7 Projected Trend',...
     'Location', 'southoutside')
 lgd.NumColumns = 3
 

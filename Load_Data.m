@@ -558,14 +558,15 @@ Wildfire_Future_Time = [2018:1:2050]'
 Proj_Acres_Burned = slope1.*Wildfire_Future_Time + intercept1;
 
 figure (18); clf
-plot(Total_Burned(:,1),Total_Burned(:,2), '.', 'MarkerSize', 8)
+plot(Total_Burned(:,1),Total_Burned(:,2), '.', 'MarkerSize', 11)
 hold on
-plot(Total_Burned(:,1), Wildfire_LBF)
+plot(Total_Burned(:,1), Wildfire_LBF, 'color','#77AC30','LineWidth', 1)
 hold on 
-plot(Wildfire_Future_Time, Proj_Acres_Burned)
+plot(Wildfire_Future_Time, Proj_Acres_Burned,'r','LineWidth', 1)
 xlabel("Year")
 ylabel("Acres Burned")
 title("Historical and Projected Acres Burned due to Wildfires until 2050")
+legend('Wildfire Acres Burned', 'Wildfire Acres Trendline', 'Wildfire Acres Projected Trendline') 
 
 
 

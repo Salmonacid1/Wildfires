@@ -252,7 +252,7 @@ geoshow(ax,states,'SymbolSpec',faceColors)
 h(1)= scatterm(Wildfire_Locations_2020.latitude,Wildfire_Locations_2020.longitude,5,'filled','k', 'DisplayName', '2020 Wildfire Events')
 hold on 
 h(2) = scatterm(SQF_Climatology.LATITUDE(1), SQF_Climatology.LONGITUDE(1),200, 'p','filled','r', 'DisplayName', 'Sequoia Forest')
-title('Location of Calfornia Wildfires in 2020')
+title('Location of California Wildfires in 2020')
 legend(h)
 
 %% Plotting Historical Precipitation at SQF Station

@@ -562,7 +562,7 @@ plot(Total_Burned(:,1),Total_Burned(:,2), '.', 'MarkerSize', 11)
 hold on
 plot(Total_Burned(:,1), Wildfire_LBF, 'color','#77AC30','LineWidth', 1)
 hold on 
-plot(Wildfire_Future_Time, Proj_Acres_Burned,'r','LineWidth', 1)
+plot(Wildfire_Future_Time, Proj_Acres_Burned,'color', '#D95319','LineWidth', 1)
 xlabel("Year")
 ylabel("Acres Burned")
 title("Historical and Projected Acres Burned due to Wildfires until 2050")

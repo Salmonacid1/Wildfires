@@ -1,11 +1,11 @@
-## Climate Change and Wildfires in California 
+# Climate Change and Wildfires in California 
 
 This repository was created by Samantha Almonacid, Audrey Kang, and Kelly Shin as 
 a final project for our data exploration and analysis course (EESC4464). The provided
 code analyzes the climatology of California's climate divisions and the Sequoia Forest,
 and projects future trends in these location's climatology up to the year 2050.
 
-# Data Availability Statement
+## Data Availability Statement
 
 The data used in this analysis can be found at the following sites, and accesed with the
 directions below. 
@@ -25,7 +25,7 @@ Climatology data for Lodgepole Station was downloaded at https://www.ncdc.noaa.g
 "Daily Summaries", "1950-01-01 to 2021-05-11", "Stations", "LODGEPOLE, CA US". After hitting search, download the two datasets for Lodgepole Station. They have Station IDs of
 GHCND:USC00045028 and GHCND:USC00045026. 
 
-# Analysis
+## Analysis
 All of the code is found under the .m file title "Code_For_Analysis". Within this file, the code loads all of the datasets, plots and projects future
 and historical climatology trends, and examines the acres burned by historical wildfires in California. 
 

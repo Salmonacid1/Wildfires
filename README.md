@@ -10,12 +10,11 @@ and projects future trends in these location's climatology up to the year 2050.
 The data used in this analysis can be found at the following sites, and accesed with the
 directions below. 
 
-The data on the acres bured by wildfires in California are available at 
+The data on the acres burned by wildfires in California are available at 
 https://www.fire.ca.gov/media/11397/fires-acres-all-agencies-thru-2018.pdf. 
 
-Spatial fire perimeter data was found at https://firms.modaps.eosdis.nasa.gov/download/. In order
-to get data specifically for California when in the download request, select "Custom Region" and "Map". 
-Once brough to the map, select "Draw Polygon", and outline the boundaries of California. 
+Spatial fire perimeter data was found at https://firms.modaps.eosdis.nasa.gov/download/. To get data specifically for California go to download request, select "Custom Region" and "Map". 
+Once brought to the map, select "Draw Polygon", and outline the boundaries of California. 
 
 California climate division temperature and precipitation data came from https://www.ncdc.noaa.gov/cag/divisional/time-series/0401/tavg/all/1/1950-2021. 
 To get the temperature data select the following specifications: "Average Temperature", "All Months", "January", "1950", "2021", "California", and the climate

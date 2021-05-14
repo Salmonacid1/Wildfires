@@ -21,12 +21,12 @@ California climate division temperature and precipitation data came from https:/
 To get the temperature data select the following specifications: "Average Temperature", "All Months", "January", "1950", "2021", "California", and the climate
 division. To get the precipitation data follow the same specifications replacing "Average Temperature" with "Precipitation". 
 
-Climatology data for Lodgepole Station was downloaded at https://www.ncdc.noaa.gov/cdo-web/search. To access this data use the follow specifications: 
+Climatology data for Lodgepole Station was downloaded at https://www.ncdc.noaa.gov/cdo-web/search. To access this data use the following specifications: 
 "Daily Summaries", "1950-01-01 to 2021-05-11", "Stations", "LODGEPOLE, CA US". After hitting search, download the two datasets for Lodgepole Station. They have Station IDs of
 GHCND:USC00045028 and GHCND:USC00045026. 
 
 ## Analysis
-All of the code is found under the .m file title "Code_For_Analysis". Within this file, the code loads all of the datasets, plots and projects future
+All of the code is found under the .m file titled "Code_For_Analysis". Within this file, the code loads all of the datasets, plots and projects future
 and historical climatology trends, and examines the acres burned by historical wildfires in California. 
 
 The code relies of a function called "Time Conversion" which is included in the repository. 

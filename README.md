@@ -29,5 +29,5 @@ GHCND:USC00045028 and GHCND:USC00045026.
 All of the code is found under the .m file titled "Code_For_Analysis". Within this file, the code loads all of the datasets, plots and projects future
 and historical climatology trends, and examines the acres burned by historical wildfires in California. 
 
-The code relies of a function called "Time Conversion" which is included in the repository. 
+The code relies on a function called "Time Conversion", which is included in the repository. 
 

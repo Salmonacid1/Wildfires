@@ -4,11 +4,11 @@ This repository was created by Samantha Almonacid, Audrey Kang, and Kelly Shin a
 a final project for our data exploration and analysis course (EESC4464). The provided
 code analyzes the climatology of California's climate divisions and the Sequoia Forest,
 and projects future trends in these location's climatology up to the year 2050. It also examines
-historical and future trends of wildfires in California. 
+historical and future trends of wildfires in California using MATLAB. 
 
 ## Data Availability Statement
 
-The data used in this analysis can be found at the following sites, and accesed with the
+The data used in this analysis can be found at the following sites, and accessed with the
 directions below. 
 
 The data on the acres burned by wildfires in California are available at 
